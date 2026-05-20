@@ -92,6 +92,20 @@ html.pf-v6-theme-dark .pf-v6-c-page__main-section {
   background-color: #414141;
 }
 
+/* Dark theme danger button contrast override for WCAG 2.2 Level AA compliance */
+html.pf-v6-theme-dark .pf-v6-c-button.pf-m-danger {
+  --pf-v6-c-button--m-danger--BackgroundColor: rgb(200 90 90);
+  --pf-v6-c-button--m-danger--Color: #fff;
+  --pf-v6-c-button--m-danger--hover--BackgroundColor: rgb(220 100 100);
+  --pf-v6-c-button--m-danger--active--BackgroundColor: rgb(180 80 80);
+  --pf-v6-c-button--m-danger--focus--BackgroundColor: rgb(200 90 90);
+}
+
+html.pf-v6-theme-dark .pf-v6-c-button.pf-m-danger:disabled {
+  --pf-v6-c-button--disabled--BackgroundColor: rgb(100 45 45);
+  --pf-v6-c-button--disabled--Color: rgb(255 255 255 / 40%);
+}
+
 /* Workspace Progress - inherit background for loader tab content */
 /* stylelint-disable-next-line selector-id-pattern */
 #pf-tab-section-Progress-loader-progress-tab .pf-v6-c-page__main-section {
