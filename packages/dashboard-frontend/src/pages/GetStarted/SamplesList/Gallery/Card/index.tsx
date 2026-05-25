@@ -57,13 +57,6 @@ export class SampleCard extends React.PureComponent<Props> {
     this.props.onClick();
   };
 
-  private handleKeyDown(event: React.KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      this.handleSelectableAction();
-    }
-  }
-
   private buildIcon(metadata: che.DevfileMetaData): React.ReactElement {
     const props = {
       className: styles.sampleCardIcon,
@@ -89,19 +82,22 @@ export class SampleCard extends React.PureComponent<Props> {
         id={this.cardId}
         isCompact
         isClickable
-        onClick={this.handleSelectableAction}
-        onKeyDown={(e: React.KeyboardEvent) => this.handleKeyDown(e)}
-        role="button"
-        tabIndex={0}
-        aria-label={`Create workspace from sample ${metadata.displayName}`}
         className={`${styles.sampleCard} sample-card`}
         data-testid="sample-card"
       >
-        <CardHeader actions={{ actions: <>{tags}</> }}>
+        <CardHeader
+          selectableActions={{
+            onClickAction: this.handleSelectableAction,
+            selectableActionAriaLabel: `Create workspace from sample ${metadata.displayName}`,
+          }}
+        >
           {devfileIcon}
           <CardTitle>{metadata.displayName}</CardTitle>
         </CardHeader>
-        <CardBody>{metadata.description}</CardBody>
+        <CardBody>
+          {tags.length > 0 && <div className={styles.sampleCardTags}>{tags}</div>}
+          {metadata.description}
+        </CardBody>
       </Card>
     );
   }
