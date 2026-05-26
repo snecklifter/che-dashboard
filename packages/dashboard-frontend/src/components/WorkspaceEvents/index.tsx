@@ -112,11 +112,13 @@ class WorkspaceEvents extends React.PureComponent<Props> {
 
     return (
       <PageSection variant={PageSectionVariants.default}>
-        <Stack hasGutter>
-          {tailStackItem}
-          {eventItems}
-          {headStackItem}
-        </Stack>
+        <div role="log" aria-label="Workspace events" aria-live="polite" aria-atomic="false">
+          <Stack hasGutter>
+            {tailStackItem}
+            {eventItems}
+            {headStackItem}
+          </Stack>
+        </div>
       </PageSection>
     );
   }
