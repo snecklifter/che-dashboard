@@ -10,7 +10,6 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 
-import { api } from '@eclipse-che/common';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -60,9 +59,8 @@ describe('About Menu', () => {
   });
 
   const productCli = 'crwctl';
-  const email = 'johndoe@example.com';
   const username = 'John Doe';
-  const store = createStore(productCli, username, email);
+  const store = createStore(productCli, username);
   const branding = selectBranding(store.getState());
 
   const component = (
@@ -145,12 +143,9 @@ describe('About Menu', () => {
   });
 });
 
-function createStore(cheCliTool: string, name: string, email: string): Store {
+function createStore(cheCliTool: string, name: string): Store {
   return new MockStoreBuilder()
-    .withUserProfile({
-      username: name,
-      email,
-    } as api.IUserProfile)
+    .withUsername(name)
     .withBranding({
       configuration: {
         cheCliTool,

@@ -23,7 +23,7 @@ import { RootState } from '@/store';
 import { selectBranding } from '@/store/Branding/selectors';
 import { selectApplications } from '@/store/ClusterInfo/selectors';
 import { selectDashboardLogo } from '@/store/ServerConfig/selectors';
-import { selectUserProfile } from '@/store/User/Profile/selectors';
+import { selectUsername } from '@/store/User/Name/selectors';
 
 type Props = MappedProps & {
   history: History;
@@ -35,11 +35,9 @@ export class HeaderTools extends React.PureComponent<Props> {
   }
 
   public render(): React.ReactElement {
-    const { applications, userProfile } = this.props;
+    const { applications, username } = this.props;
 
-    const { email, username } = userProfile;
-    const imageUrl = email ? gravatarUrl(email, { default: 'retro' }) : '';
-    const isUserAuthenticated = !!email;
+    const imageUrl = gravatarUrl(username, { default: 'retro' });
 
     return (
       <Toolbar id="header-tools" isStatic>
@@ -57,22 +55,18 @@ export class HeaderTools extends React.PureComponent<Props> {
                 username={username}
               />
             </ToolbarItem>
-            {isUserAuthenticated && (
-              <ToolbarItem>
-                <UserMenu
-                  branding={this.props.branding}
-                  history={this.props.history}
-                  username={username}
-                  logout={() => this.props.logout()}
-                />
-              </ToolbarItem>
-            )}
-          </ToolbarGroup>
-          {isUserAuthenticated && (
             <ToolbarItem>
-              <Avatar src={imageUrl} alt="Avatar image" size="md" />
+              <UserMenu
+                branding={this.props.branding}
+                history={this.props.history}
+                username={username}
+                logout={() => this.props.logout()}
+              />
             </ToolbarItem>
-          )}
+          </ToolbarGroup>
+          <ToolbarItem>
+            <Avatar src={imageUrl} alt="Avatar image" size="md" />
+          </ToolbarItem>
         </ToolbarContent>
       </Toolbar>
     );
@@ -80,7 +74,7 @@ export class HeaderTools extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  userProfile: selectUserProfile(state),
+  username: selectUsername(state),
   branding: selectBranding(state),
   dashboardLogo: selectDashboardLogo(state),
   applications: selectApplications(state),

@@ -10,7 +10,6 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 
-import { api } from '@eclipse-che/common';
 import { createHashHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -43,9 +42,8 @@ describe('Page header tools', () => {
   const mockLogout = jest.fn();
 
   const productCli = 'crwctl';
-  const email = 'johndoe@example.com';
   const name = 'John Doe';
-  const store = createStore(productCli, name, email);
+  const store = createStore(productCli, name);
   const history = createHashHistory();
 
   const component = (
@@ -63,12 +61,9 @@ describe('Page header tools', () => {
   });
 });
 
-function createStore(cheCliTool: string, name: string, email: string): Store {
+function createStore(cheCliTool: string, name: string): Store {
   return new MockStoreBuilder()
-    .withUserProfile({
-      username: name,
-      email,
-    } as api.IUserProfile)
+    .withUsername(name)
     .withBranding({
       configuration: {
         cheCliTool,
