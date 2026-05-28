@@ -1,0 +1,19 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: local
+    hooks:
+      - id: lint
+        name: ESLint
+        language: system
+        entry: yarn lint:check
+        pass_filenames: false
+        types: [file]
+
+      - id: format
+        name: Prettier
+        language: system
+        entry: yarn format:check
+        pass_filenames: false
+        types: [file]
+
